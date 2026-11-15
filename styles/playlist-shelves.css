@@ -1,0 +1,400 @@
+/**
+ * Playlist Shelves Homepage Shelf Styles
+ *
+ * Designed to blend natively into YouTube's desktop/tablet/mobile homepage
+ * grid while supporting both YouTube light and dark themes.
+ */
+
+.ps-shelf {
+  grid-column: 1 / -1 !important;
+  --ps-text-primary: var(--yt-spec-text-primary, #0f0f0f);
+  --ps-text-secondary: var(--yt-spec-text-secondary, #606060);
+  --ps-surface: var(--yt-spec-raised-background, #ffffff);
+  --ps-surface-subtle: var(--yt-spec-badge-chip-background, rgba(0, 0, 0, 0.05));
+  --ps-surface-hover: var(--yt-spec-10-percent-layer, rgba(0, 0, 0, 0.1));
+  --ps-border: var(--yt-spec-10-percent-layer, rgba(0, 0, 0, 0.1));
+  --ps-accent: var(--yt-spec-call-to-action, #065fd4);
+  --ps-accent-hover: rgba(6, 95, 212, 0.12);
+  --ps-thumb-bg: rgba(0, 0, 0, 0.08);
+  --ps-scrollbar-thumb: rgba(0, 0, 0, 0.22);
+
+  box-sizing: border-box;
+  width: 100%;
+  padding: 16px 24px 20px;
+  margin: 0 0 12px;
+  border-bottom: 1px solid var(--ps-border);
+  font-family: "Roboto", "Arial", sans-serif;
+  color: var(--ps-text-primary);
+}
+
+.ps-shelf[data-ps-theme="dark"] {
+  --ps-text-primary: var(--yt-spec-text-primary, #f1f1f1);
+  --ps-text-secondary: var(--yt-spec-text-secondary, #aaaaaa);
+  --ps-surface: var(--yt-spec-raised-background, #212121);
+  --ps-surface-subtle: var(--yt-spec-badge-chip-background, rgba(255, 255, 255, 0.08));
+  --ps-surface-hover: var(--yt-spec-10-percent-layer, rgba(255, 255, 255, 0.14));
+  --ps-border: var(--yt-spec-10-percent-layer, rgba(255, 255, 255, 0.12));
+  --ps-accent: var(--yt-spec-call-to-action, #3ea6ff);
+  --ps-accent-hover: rgba(62, 166, 255, 0.16);
+  --ps-thumb-bg: rgba(255, 255, 255, 0.08);
+  --ps-scrollbar-thumb: rgba(255, 255, 255, 0.25);
+}
+
+.ps-shelf *,
+.ps-shelf *::before,
+.ps-shelf *::after {
+  box-sizing: border-box;
+}
+
+/* Header */
+.ps-shelf .ps-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.ps-shelf .ps-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.ps-shelf .ps-header-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  color: var(--ps-text-primary);
+}
+
+.ps-shelf .ps-heading {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: -0.01em;
+  color: var(--ps-text-primary);
+}
+
+.ps-shelf .ps-count {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+  color: var(--ps-text-secondary);
+  white-space: nowrap;
+}
+
+.ps-shelf .ps-total-time {
+  padding: 4px 8px;
+  border-radius: 12px;
+  background: var(--ps-surface-subtle);
+  color: var(--ps-text-secondary);
+  font-size: 12px;
+  line-height: 18px;
+  white-space: nowrap;
+}
+
+.ps-shelf .ps-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.ps-shelf .ps-view-all {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  color: var(--ps-accent);
+  transition: background-color 0.15s ease;
+}
+
+.ps-shelf .ps-view-all:hover {
+  background-color: var(--ps-accent-hover);
+}
+
+.ps-shelf .ps-nav-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ps-shelf .ps-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--ps-surface-subtle);
+  color: var(--ps-text-primary);
+  cursor: pointer;
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+}
+
+.ps-shelf .ps-nav-btn:hover:not(:disabled) {
+  background-color: var(--ps-surface-hover);
+}
+
+.ps-shelf .ps-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.ps-shelf .ps-nav-btn.ps-nav-hidden {
+  display: none;
+}
+
+.ps-shelf .ps-chevron-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Horizontal shelf track */
+.ps-shelf .ps-track {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 16px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ps-scrollbar-thumb) transparent;
+}
+
+.ps-shelf .ps-track::-webkit-scrollbar {
+  height: 6px;
+}
+
+.ps-shelf .ps-track::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ps-shelf .ps-track::-webkit-scrollbar-thumb {
+  background-color: var(--ps-scrollbar-thumb);
+  border-radius: 3px;
+}
+
+/* Video card */
+.ps-shelf .ps-card {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 clamp(216px, 19.5vw, 268px);
+  scroll-snap-align: start;
+  color: inherit;
+  border-radius: 0;
+  transition: transform 0.15s ease;
+}
+
+.ps-shelf .ps-thumb-wrap {
+  display: block;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: var(--ps-thumb-bg);
+}
+
+.ps-shelf .ps-thumb {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s ease, border-radius 0.2s ease;
+}
+
+.ps-shelf .ps-card:hover .ps-thumb {
+  transform: scale(1.03);
+}
+
+.ps-shelf .ps-thumb.ps-thumb-broken {
+  opacity: 0.25;
+}
+
+.ps-shelf .ps-duration {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  padding: 2px 5px;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.82);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14px;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+
+.ps-shelf .ps-meta {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 2px 2px;
+  min-height: 74px;
+}
+
+.ps-shelf .ps-channel-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--ps-surface-hover);
+  color: var(--ps-text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ps-shelf .ps-channel-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ps-shelf .ps-card-info {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.ps-shelf .ps-video-title {
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+  color: var(--ps-text-primary);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+}
+
+.ps-shelf .ps-channel {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  color: var(--ps-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ps-shelf .ps-card-menu-button {
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  margin: -4px -6px 0 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ps-text-secondary);
+  font-family: inherit;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+.ps-shelf .ps-card-menu-button:hover { color: var(--ps-text-primary); background: var(--ps-surface-subtle); }
+body > .ps-card-menu { position: fixed; z-index: 2147483647; width: 190px; margin: 0; padding: 4px; border: 1px solid rgba(0,0,0,.14); border-radius: 8px; background: #fff; color: #0f0f0f; box-shadow: 0 2px 8px rgba(0,0,0,.18); }
+html[dark] body > .ps-card-menu { border-color: rgba(255,255,255,.14); background: #212121; color: #f1f1f1; }
+body > .ps-card-menu[hidden] { display: none; }
+body > .ps-card-menu .ps-card-menu-action { display: block; width: 100%; padding: 9px 10px; border: 0; border-radius: 5px; background: transparent; color: inherit; font: inherit; font-size: 13px; text-align: left; cursor: pointer; }
+body > .ps-card-menu .ps-card-menu-action:hover { background: rgba(0,0,0,.08); }
+html[dark] body > .ps-card-menu .ps-card-menu-action:hover { background: rgba(255,255,255,.12); }
+.ps-shelf .ps-card-link:focus-visible { outline: 2px solid var(--ps-accent); }
+
+/* Empty / onboarding state */
+.ps-shelf .ps-empty {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px 18px;
+  border-radius: 12px;
+  background-color: var(--ps-surface-subtle);
+}
+
+.ps-shelf .ps-empty-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--ps-text-secondary);
+}
+
+.ps-shelf .ps-empty-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.ps-shelf .ps-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 18px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+}
+
+.ps-shelf .ps-btn-primary {
+  background-color: var(--ps-text-primary);
+  color: var(--ps-surface);
+}
+
+.ps-shelf .ps-btn-primary:hover {
+  opacity: 0.88;
+}
+
+.ps-shelf .ps-btn-secondary {
+  background-color: var(--ps-surface-hover);
+  color: var(--ps-text-primary);
+}
+
+.ps-shelf .ps-btn-secondary:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+.ps-shelf .ps-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+@media (max-width: 792px) {
+  .ps-shelf {
+    padding: 14px 16px 18px;
+  }
+
+  .ps-shelf .ps-card {
+    flex: 0 0 210px;
+  }
+}

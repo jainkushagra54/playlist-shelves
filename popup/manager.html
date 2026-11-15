@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playlist Shelves</title>
+    <link rel="stylesheet" href="manager.css" />
+  </head>
+  <body>
+    <main class="popup">
+      <header class="header">
+        <div class="brand">
+          <img src="../icons/icon48.png" alt="" class="brand-icon" width="38" height="38" />
+          <div>
+            <h1 class="brand-name">Playlist Shelves</h1>
+            <p class="brand-sub">Your YouTube playlists, in one place</p>
+          </div>
+        </div>
+        <span id="status-badge" class="status-badge">Local</span>
+      </header>
+
+      <section class="overview" aria-label="Playlist overview">
+        <div class="overview-card"><span>Playlists</span><strong id="playlist-count">1</strong></div>
+        <div class="overview-card"><span>Cached videos</span><strong id="video-count">0</strong></div>
+        <div class="overview-card overview-time"><span>Total watch time</span><strong id="watch-time">—</strong></div>
+      </section>
+
+      <div id="feedback" class="feedback hidden" role="status" aria-live="polite"></div>
+
+      <section class="playlist-section" aria-labelledby="playlists-heading">
+        <div class="section-heading">
+          <div><h2 id="playlists-heading">Your shelves</h2><p>Manage playlists shown on Home.</p></div>
+          <a id="open-home-link" class="icon-link" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="Open YouTube Home" title="Open YouTube Home">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          </a>
+        </div>
+
+        <form id="playlist-add-form" class="add-form">
+          <label class="visually-hidden" for="playlist-url">YouTube playlist link</label>
+          <input id="playlist-url" type="url" placeholder="Paste a YouTube playlist link" required />
+          <div class="add-form-bottom">
+            <label class="visually-hidden" for="playlist-title">Shelf name</label>
+            <input id="playlist-title" type="text" placeholder="Shelf name (optional)" maxlength="60" />
+            <button class="btn btn-add" type="submit">Add playlist</button>
+          </div>
+        </form>
+
+        <div id="playlist-list" class="playlist-list" aria-live="polite"></div>
+      </section>
+
+      <details class="display-settings">
+        <summary><span>Display preferences</span><span class="summary-note">Apply to all shelves</span></summary>
+        <div class="settings-body">
+          <label class="setting-row" for="setting-sort"><span><strong>Order</strong><small>Arrange videos by</small></span>
+            <select id="setting-sort"><option value="playlist">Playlist order</option><option value="title">Title</option></select>
+          </label>
+          <label class="toggle-row" for="setting-channel"><span><strong>Channel and views</strong><small>Show metadata below titles</small></span><input id="setting-channel" type="checkbox" /></label>
+          <p class="settings-note">Opening a video marks it seen and hides it from that shelf. Use the three-dot menu to hide a video manually.</p>
+        </div>
+      </details>
+
+      <footer class="footer-note">Playlist details stay in this Chrome profile. Sync opens the selected playlist in a temporary YouTube tab.</footer>
+    </main>
+    <script src="../services/playlist-storage.js"></script>
+    <script src="manager.js"></script>
+  </body>
+</html>
